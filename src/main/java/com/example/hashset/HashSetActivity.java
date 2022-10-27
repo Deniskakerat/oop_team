@@ -5,9 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.util.HashMap;
 
+/**
+ *Class that manage the graphic objects
+ **/
 public class HashSetActivity {
 
     private  HashMap<String,StackPane> graphicObjectsList = new HashMap<>();
@@ -18,11 +20,11 @@ public class HashSetActivity {
     private static int  currentY = 0;
 
 
-
-
     // method that add new object in the hash and draw it
     public StackPane add(String data){
         if(hashSet.add(data)){
+
+            // Draw rectangle with value in center
             Rectangle rectangle = new Rectangle();
 
             rectangle.setArcHeight(5);
@@ -36,8 +38,6 @@ public class HashSetActivity {
             Label label = new Label();
             label.setText(data);
 
-            currentX+= WIDTH;
-            currentY = HEIGHT;
 
             StackPane stackPane = new StackPane(rectangle,label);
             graphicObjectsList.put(data,stackPane);
@@ -47,10 +47,11 @@ public class HashSetActivity {
         return null;
     }
 
-
+    // Method to delete value from HashSet and remove rectangle with that value
     public StackPane remove(String data){
         StackPane stackPane = graphicObjectsList.get(data);
         return stackPane;
     }
+
 
 }

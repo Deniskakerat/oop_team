@@ -3,7 +3,9 @@ package com.example.hashset;
 
 import java.util.HashSet;
 import java.util.Iterator;
-
+/**
+ * Class for HashSet
+ **/
 public class HashSetInstance {
     private HashSet<String> hashSet = new HashSet<>();
 

@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-
+/**
+ * Class that allow us to create different dialogs for different tasks
+ * which will inherit basic design
+ **/
 public abstract class CustomDialog extends Dialog<String> {
     @FXML
     public Label inputTitle;
@@ -15,19 +18,28 @@ public abstract class CustomDialog extends Dialog<String> {
     protected ButtonType OK;
     @FXML
     protected ButtonType CANCEL;
-    public CustomDialog(String title, String subtitle){
+    /**
+     * Constructor :
+     * Arguments:
+     * title - title for dialog
+     * instruction - tell user what to do in dialog
+     **/
+
+    public CustomDialog(String title, String instruction){
         try
         {
+            // load 'dialog.fxml'
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("dialog.fxml"));
-
             loader.setController(this);
             DialogPane dialogPane = loader.load();
+
             setResizable(false);
             setTitle(title);
+            // TODO make it possible to change label that constains instuction for input
+            this.inputTitle.setText(instruction);
             setDialogPane(dialogPane);
 
-            setUI(subtitle);
             setResultConverter();
 
         }
@@ -35,35 +47,9 @@ public abstract class CustomDialog extends Dialog<String> {
             throw new RuntimeException(e);
         }
     }
-
-    private void setUI(String labelName){
-        /*AnchorPane pane = new AnchorPane();
-        pane.setPrefSize(350,400);
-
-        Label activityLabel = new Label(labelName);
-        activityLabel.setLayoutX(10);
-        activityLabel.setLayoutY(90);
-        activityLabel.setMaxHeight(16);
-        activityLabel.setMaxWidth(400);
-        activityLabel.setFont(Font.font("Ariel",16));
-        activityLabel.setAlignment(Pos.CENTER);
-
-
-        textField = new TextField();
-        textField.setLayoutX(115);
-        textField.setLayoutY(163);
-        textField.setPrefSize(170,30);
-
-
-        pane.getChildren().addAll(activityLabel,textField);
-        getDialogPane().getChildren().add(pane);
-        getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        setResultConverter();*/
-
-
-    }
-
+    // check if input valid
     public abstract boolean isInputValid();
+    // convert result so we could return it from dialog
     protected abstract void setResultConverter();
 
 }

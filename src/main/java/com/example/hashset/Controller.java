@@ -14,19 +14,13 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * Class that control all the events that goes in on our main scene
+ **/
 public class Controller implements Initializable {
-    @FXML
-    private Button addButton, deleteButton, containsButton, clearButton, sizeButton;
-    @FXML
-    private HBox hashBox;
     @FXML
     private ListView<StackPane> hashSetList;// list that show hashSet elements on the screen
     private HashSetActivity hashSetActivity;
-
-    public ListView<StackPane> getHashSetList() {
-        return hashSetList;
-    }
 
 
     // this method is called automatically when setup Controller
@@ -55,19 +49,33 @@ public class Controller implements Initializable {
         Optional<String> result = addItemDialog.showAndWait();
 
         */
-        Dialog<String> addItemDialog = new AddItemDialog("Add Item","Enter new element");
+
+        //Dialog<String> addItemDialog = new AddItemDialog("Add Item","Enter new element");
+
+        CustomDialog addItemDialog = new AddItemDialog("Add Item","Enter ll");
+
+        // returning value from dialog
         Optional<String> result = addItemDialog.showAndWait();
+
+        // if value is present
         if(result.isPresent()){
+            // get string value that we need to add to our hashSet
             String inputData = result.get();
+            // graphic element that will represent our hashSet item
+            // in stackPane we're having rectangle and label
             StackPane stackPane;
+
             hashSetActivity = new HashSetActivity();
             stackPane = hashSetActivity.add(inputData);
+            // add new item as rectangle on the screen
             hashSetList.getItems().add(stackPane);
         }
+
     }
 
     //TODO Method to delete item from HashSet 'Should call the dialog in which user enter the item to delete'
     public void deleteButtonClick(ActionEvent actionEvent) {
+
         /*String objectToRemove = "ww";
         StackPane removeStackPane = hashSetActivity.remove(objectToRemove);
         hashSetList.getItems().remove(removeStackPane);*/
@@ -85,38 +93,9 @@ public class Controller implements Initializable {
 
     }
 
-    //TODO Method to get size of HashSet 'Should call getter'
-    public void sizeButtonClick(ActionEvent actionEvent) {
+    //TODO Method to print all the values from hashset on the screen
+    public void printButtonClick(ActionEvent actionEvent){
 
-    }
-
-    static class Cell extends ListCell<Rectangle> {
-        public Cell(Label label) {
-            this.label = label;
-        }
-
-        private Label label = new Label(); // it represents the data user entered in dialog box
-        private StackPane stackPane = new StackPane(); // allow us to stack elements one on the other
-        private Rectangle rectangle = new Rectangle(); // object of Rectangle (Instance that represents every cell in HashSet)
-
-        public Cell() {
-            super();
-            // set stackPane as the main Node since it let us center text on Rectangle
-            stackPane.setPrefSize(100, 100);
-            stackPane.getChildren().addAll(rectangle, label);
-            stackPane.setBackground(Background.fill(Color.WHITE));
-
-        }
-
-        @Override  // realize how the every cell must look
-        protected void updateItem(Rectangle rectangle, boolean b) {
-            super.updateItem(rectangle, b);
-            setText(null);
-            setGraphic(null);
-            if (rectangle != null && !b) {
-                setGraphic(stackPane);
-            }
-        }
     }
 
 }
