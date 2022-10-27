@@ -1,23 +1,23 @@
 package com.example.hashset;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
-import java.io.IOException;
 /**
  * Class that allow us to create different dialogs for different tasks
  * which will inherit basic design
  **/
-public abstract class CustomDialog extends Dialog<String> {
-    @FXML
-    public Label inputTitle;
-    @FXML
+public abstract class CustomDialog extends Dialog<String>{
     protected TextField inputField;
-    @FXML
-    protected ButtonType OK;
-    @FXML
-    protected ButtonType CANCEL;
+    protected Label activityLabel;
     /**
      * Constructor :
      * Arguments:
@@ -25,28 +25,44 @@ public abstract class CustomDialog extends Dialog<String> {
      * instruction - tell user what to do in dialog
      **/
 
+
     public CustomDialog(String title, String instruction){
-        try
-        {
-            // load 'dialog.fxml'
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("dialog.fxml"));
-            loader.setController(this);
-            DialogPane dialogPane = loader.load();
+        this.setTitle(title);
 
-            setResizable(false);
-            setTitle(title);
-            // TODO make it possible to change label that constains instuction for input
-            this.inputTitle.setText(instruction);
-            setDialogPane(dialogPane);
+        setUI(instruction);
+        setResultConverter();
 
-            setResultConverter();
 
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
+    // Method that creates GUI
+    private void setUI(String instruction){
+        AnchorPane anchorPane = new AnchorPane();
+
+        getDialogPane().setPrefSize(400,400);
+        anchorPane.setPrefSize(400,350);
+
+        activityLabel = new Label();
+        activityLabel.setText(instruction);
+        activityLabel.setLayoutY(90);
+        activityLabel.setPrefHeight(16);
+        activityLabel.setPrefWidth(400);
+        activityLabel.setFont(Font.font("Ariel",16));
+        activityLabel.setAlignment(Pos.CENTER);
+
+
+        inputField = new TextField();
+        inputField.setPrefWidth(200);
+        inputField.setAlignment(Pos.CENTER);
+
+        VBox vBox = new VBox(activityLabel,inputField);
+        VBox.setMargin(activityLabel,new Insets(100,0,0,0));
+        VBox.setMargin(inputField,new Insets(50,100,0,100));
+
+        anchorPane.getChildren().add(vBox);
+        getDialogPane().getChildren().add(anchorPane);
+        getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+    }
+
     // check if input valid
     public abstract boolean isInputValid();
     // convert result so we could return it from dialog

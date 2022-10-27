@@ -52,7 +52,7 @@ public class Controller implements Initializable {
 
         //Dialog<String> addItemDialog = new AddItemDialog("Add Item","Enter new element");
 
-        CustomDialog addItemDialog = new AddItemDialog("Add Item","Enter ll");
+        CustomDialog addItemDialog = new AddItemDialog("Add Item","Enter element to add");
 
         // returning value from dialog
         Optional<String> result = addItemDialog.showAndWait();
