@@ -16,9 +16,6 @@ public class HashSetActivity {
     private HashSetInstance hashSet  = new HashSetInstance();
     private static final int  WIDTH = 100;
     private static final int  HEIGHT = 100;
-    private static int  currentX = 0;
-    private static int  currentY = 0;
-
 
     // method that add new object in the hash and draw it
     public StackPane add(String data){
@@ -30,14 +27,11 @@ public class HashSetActivity {
             rectangle.setArcHeight(5);
             rectangle.setArcWidth(5);
             rectangle.setFill(Color.RED);
-            rectangle.setX(currentX);
-            rectangle.setY(currentY);
             rectangle.setWidth(WIDTH);
             rectangle.setHeight(HEIGHT);
 
             Label label = new Label();
             label.setText(data);
-
 
             StackPane stackPane = new StackPane(rectangle,label);
             graphicObjectsList.put(data,stackPane);
