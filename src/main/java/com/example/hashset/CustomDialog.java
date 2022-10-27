@@ -17,7 +17,6 @@ import javafx.scene.text.TextAlignment;
  **/
 public abstract class CustomDialog extends Dialog<String>{
     protected TextField inputField;
-    protected Label activityLabel;
     /**
      * Constructor :
      * Arguments:
@@ -41,7 +40,7 @@ public abstract class CustomDialog extends Dialog<String>{
         getDialogPane().setPrefSize(400,400);
         anchorPane.setPrefSize(400,350);
 
-        activityLabel = new Label();
+        Label activityLabel = new Label();
         activityLabel.setText(instruction);
         activityLabel.setLayoutY(90);
         activityLabel.setPrefHeight(16);
