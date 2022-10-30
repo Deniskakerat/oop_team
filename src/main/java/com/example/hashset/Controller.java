@@ -1,6 +1,7 @@
 package com.example.hashset;
 
 import com.example.hashset.exceptions.ItemAlreadyExists;
+import com.example.hashset.exceptions.ItemNotExist;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,13 +65,29 @@ public class Controller implements Initializable {
     }
 
     //TODO Method to delete item from HashSet 'Should call the dialog in which user enter the item to delete'
-    public void deleteButtonClick(ActionEvent actionEvent) {
+    public void deleteButtonClick(ActionEvent actionEvent) throws ItemNotExist {
 
-        /*String objectToRemove = "ww";
-        StackPane removeStackPane = hashSetActivity.remove(objectToRemove);
-        hashSetList.getItems().remove(removeStackPane);*/
-        /*Dialog<String> addItemDialog = new AddItemDialog("Delete Item","Enter item to delete");
-        Optional<String> result = addItemDialog.showAndWait();*/
+        Dialog<String> addItemDialog = new AddItemDialog("Delete Item","Enter item to delete");
+        Optional<String> result = addItemDialog.showAndWait();
+        if(result.isPresent()) {
+            // get string value that we need to add to our hashSet
+            String inputData = result.get();
+            //check to delete valid item
+            if (hashSetActivity.getHashSet().contains(inputData)==false) {
+                Alert valueExistInHashSet = new Alert(Alert.AlertType.ERROR);
+                valueExistInHashSet.getDialogPane().setHeaderText("Value do not exist!");
+                valueExistInHashSet.getDialogPane().setContentText("Such value do not exist in the HashSet!");
+                valueExistInHashSet.showAndWait();
+                throw new ItemNotExist("Such value do not exist in the HashSet!");
+            }else{
+                hashSetActivity.getHashSet().remove(inputData);
+                System.out.println(inputData);
+                System.out.println(hashSetActivity.toString());
+                //hashSetActivity.remove
+                StackPane removeStackPane = hashSetActivity.remove(inputData);
+                hashSetList.getItems().remove(removeStackPane);
+            }
+        }
     }
 
     //TODO Method to check if HashSet contains item that user enter in the dialog window
