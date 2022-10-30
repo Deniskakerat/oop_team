@@ -1,5 +1,6 @@
 package com.example.hashset;
 
+import com.example.hashset.exceptions.ItemAlreadyExists;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * Class that control all the events that goes in on our main scene
+ * Class that control all the events that goes on in our main scene
  **/
 public class Controller implements Initializable {
     @FXML
@@ -26,31 +27,12 @@ public class Controller implements Initializable {
     // this method is called automatically when setup Controller
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         hashSetActivity = new HashSetActivity();
-        //hashSetList.setCellFactory(cell -> new ListViewController.Cell());
-
 
     }
 
-    //TODO Method to add new item to HashSet. 'Should call the dialog window' and draw new item on the screen
-    public void addButtonClick(ActionEvent actionEvent) throws IOException {
-        /*CustomDialog customDialog = new AddItemDialog("Add Item", "Enter new item into text box");
-        Optional<String> result = customDialog.showAndWait();
-
-        StackPane stackPane;
-
-        System.out.println("Res = " + customDialog.getTextField().getText());
-        hsActivity = new HSActivity();
-        stackPane = hsActivity.add(customDialog.getTextField().getText());
-        hashSetList.getItems().add(stackPane);*/
-
-        /*Dialog<String> addItemDialog = new AddItemDialog("Add Item","Enter new element");
-        Optional<String> result = addItemDialog.showAndWait();
-
-        */
-
-        //Dialog<String> addItemDialog = new AddItemDialog("Add Item","Enter new element");
+    // Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()
+    public void addButtonClick(ActionEvent actionEvent) throws ItemAlreadyExists {
 
         CustomDialog addItemDialog = new AddItemDialog("Add Item","Enter element to add");
 
@@ -61,16 +43,24 @@ public class Controller implements Initializable {
         if(result.isPresent()){
             // get string value that we need to add to our hashSet
             String inputData = result.get();
+
+            if(hashSetActivity.getHashSet().contains(inputData)){
+                Alert valueExistInHashSet = new Alert(Alert.AlertType.ERROR);
+                valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
+                valueExistInHashSet.getDialogPane().setContentText("Such value already exists in the HashSet!");
+                valueExistInHashSet.showAndWait();
+                throw  new ItemAlreadyExists("Such value already exists in the HashSet!");
+            }
+
             // graphic element that will represent our hashSet item
             // in stackPane we're having rectangle and label
             StackPane stackPane;
-
             hashSetActivity = new HashSetActivity();
             stackPane = hashSetActivity.add(inputData);
+
             // add new item as rectangle on the screen
             hashSetList.getItems().add(stackPane);
         }
-
     }
 
     //TODO Method to delete item from HashSet 'Should call the dialog in which user enter the item to delete'

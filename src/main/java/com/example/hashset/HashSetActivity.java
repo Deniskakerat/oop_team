@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class HashSetActivity {
 
     private  HashMap<String,StackPane> graphicObjectsList = new HashMap<>();
-    private HashSetInstance hashSet  = new HashSetInstance();
+    private static HashSetInstance hashSet  = new HashSetInstance();
     private static final int  WIDTH = 100;
     private static final int  HEIGHT = 100;
 
@@ -26,7 +26,7 @@ public class HashSetActivity {
 
             rectangle.setArcHeight(5);
             rectangle.setArcWidth(5);
-            rectangle.setFill(Color.RED);
+            rectangle.setFill(Color.BLUE);
             rectangle.setWidth(WIDTH);
             rectangle.setHeight(HEIGHT);
 
@@ -47,5 +47,7 @@ public class HashSetActivity {
         return stackPane;
     }
 
-
+    public static HashSetInstance getHashSet() {
+        return hashSet;
+    }
 }
