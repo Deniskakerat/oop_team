@@ -32,7 +32,7 @@ public class HashSetActivity {
             rectangle.setHeight(HEIGHT);
 
             Label label = new Label();
-            label.setTextFill(Paint.valueOf("#FFFFFF"));
+            label.setTextFill(Color.BLACK);
             label.setText(data);
 
             StackPane stackPane = new StackPane(rectangle,label);
