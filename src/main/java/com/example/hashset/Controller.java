@@ -1,6 +1,7 @@
 package com.example.hashset;
 
 import com.example.hashset.exceptions.ItemAlreadyExists;
+import com.example.hashset.exceptions.ItemNotExists;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     @FXML
     private ListView<StackPane> hashSetList;// list that show hashSet elements on the screen
+    @FXML
+    private Label hashSetSizeValue; // show the size of HashSet
     private HashSetActivity hashSetActivity;
 
 
@@ -44,6 +47,7 @@ public class Controller implements Initializable {
             // get string value that we need to add to our hashSet
             String inputData = result.get();
 
+            // Check if value we get from dialog already in the HashSet
             if(hashSetActivity.getHashSet().contains(inputData)){
                 Alert valueExistInHashSet = new Alert(Alert.AlertType.ERROR);
                 valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
@@ -55,26 +59,50 @@ public class Controller implements Initializable {
             // graphic element that will represent our hashSet item
             // in stackPane we're having rectangle and label
             StackPane stackPane;
-            hashSetActivity = new HashSetActivity();
             stackPane = hashSetActivity.add(inputData);
 
             // add new item as rectangle on the screen
             hashSetList.getItems().add(stackPane);
+            hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
         }
     }
 
     //TODO Method to delete item from HashSet 'Should call the dialog in which user enter the item to delete'
-    public void deleteButtonClick(ActionEvent actionEvent) {
+    public void deleteButtonClick(ActionEvent actionEvent) throws ItemNotExists {
+        CustomDialog deleteItemDialog = new DeleteItemDialog("Remove Item","Enter element to remove");
 
-        /*String objectToRemove = "ww";
-        StackPane removeStackPane = hashSetActivity.remove(objectToRemove);
-        hashSetList.getItems().remove(removeStackPane);*/
-        /*Dialog<String> addItemDialog = new AddItemDialog("Delete Item","Enter item to delete");
-        Optional<String> result = addItemDialog.showAndWait();*/
+        // returning value from dialog
+        Optional<String> result = deleteItemDialog.showAndWait();
+
+        // if value is present
+        if(result.isPresent()){
+
+            // get string value that we need to add to our hashSet
+            String deleteData = result.get();
+
+            // Check if value we get from dialog is not exist in the HashSet
+            if(!hashSetActivity.getHashSet().contains(deleteData)){
+                Alert valueExistInHashSet = new Alert(Alert.AlertType.ERROR);
+                valueExistInHashSet.getDialogPane().setHeaderText("Value not exists!");
+                valueExistInHashSet.getDialogPane().setContentText("Such value not  exists in the HashSet!");
+                valueExistInHashSet.showAndWait();
+                throw  new ItemNotExists("Such value not exists in the HashSet!");
+            }
+
+            // graphic element that will represent our hashSet item
+            // in stackPane we're having rectangle and label
+            StackPane stackPane = hashSetActivity.remove(deleteData);
+            // add new item as rectangle on the screen
+            hashSetList.getItems().remove(stackPane);
+            // change size label
+            System.out.println("Size = " + hashSetActivity.getHashSet().getHashSet().size());
+            hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
+        }
     }
 
     //TODO Method to check if HashSet contains item that user enter in the dialog window
     public void containsButtonClick(ActionEvent actionEvent) {
+
     }
 
     //TODO Method to clear the HashSet and delete all graphic representation on the screen

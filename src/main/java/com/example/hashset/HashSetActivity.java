@@ -4,6 +4,7 @@ package com.example.hashset;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
 public class HashSetActivity {
 
     private  HashMap<String,StackPane> graphicObjectsList = new HashMap<>();
-    private static HashSetInstance hashSet  = new HashSetInstance();
+    private HashSetInstance hashSet  = new HashSetInstance();
     private static final int  WIDTH = 100;
     private static final int  HEIGHT = 100;
 
@@ -26,11 +27,12 @@ public class HashSetActivity {
 
             rectangle.setArcHeight(5);
             rectangle.setArcWidth(5);
-            rectangle.setFill(Color.BLUE);
+            rectangle.setFill(Paint.valueOf("#2ECC71"));
             rectangle.setWidth(WIDTH);
             rectangle.setHeight(HEIGHT);
 
             Label label = new Label();
+            label.setTextFill(Paint.valueOf("#FFFFFF"));
             label.setText(data);
 
             StackPane stackPane = new StackPane(rectangle,label);
@@ -43,11 +45,14 @@ public class HashSetActivity {
 
     // Method to delete value from HashSet and remove rectangle with that value
     public StackPane remove(String data){
-        StackPane stackPane = graphicObjectsList.get(data);
-        return stackPane;
+        if(hashSet.remove(data)){
+            StackPane stackPane = graphicObjectsList.get(data);
+            return stackPane;
+        }
+        return null;
     }
 
-    public static HashSetInstance getHashSet() {
+    public  HashSetInstance getHashSet() {
         return hashSet;
     }
 }
