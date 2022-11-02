@@ -36,8 +36,9 @@ public abstract class CustomDialog extends Dialog<String>{
     // Method that creates GUI
     private void setUI(String instruction){
         AnchorPane anchorPane = new AnchorPane();
+
         // add style
-        String css = String.valueOf(this.getClass().getResource("dialog.css"));
+        String css = String.valueOf(this.getClass().getResource("/com/example/hashset/dialog.css"));
         getDialogPane().getStylesheets().add(css);
 
         getDialogPane().setPrefSize(400,400);
