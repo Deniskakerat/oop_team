@@ -5,4 +5,6 @@ module com.example.hashset {
 
     opens com.example.hashset to javafx.fxml;
     exports com.example.hashset;
+    exports com.example.hashset.graphics;
+    opens com.example.hashset.graphics to javafx.fxml;
 }

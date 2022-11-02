@@ -27,7 +27,7 @@ public class HashSetActivity {
 
             rectangle.setArcHeight(5);
             rectangle.setArcWidth(5);
-            rectangle.setFill(Paint.valueOf("#2ECC71"));
+            rectangle.setFill(Paint.valueOf("#0392cf"));
             rectangle.setWidth(WIDTH);
             rectangle.setHeight(HEIGHT);
 
@@ -55,4 +55,5 @@ public class HashSetActivity {
     public  HashSetInstance getHashSet() {
         return hashSet;
     }
+
 }

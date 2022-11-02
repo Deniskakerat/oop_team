@@ -2,16 +2,18 @@ package com.example.hashset;
 
 import com.example.hashset.exceptions.ItemAlreadyExists;
 import com.example.hashset.exceptions.ItemNotExists;
+import com.example.hashset.graphics.AnimatedZoom;
+import com.example.hashset.graphics.DragObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import java.io.IOException;
+import javafx.util.Callback;
+
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -19,19 +21,56 @@ import java.util.ResourceBundle;
 /**
  * Class that control all the events that goes on in our main scene
  **/
+//TODO We need to update hashSetList after every add or remove operation
 public class Controller implements Initializable {
     @FXML
     private ListView<StackPane> hashSetList;// list that show hashSet elements on the screen
     @FXML
     private Label hashSetSizeValue; // show the size of HashSet
     private HashSetActivity hashSetActivity;
-
+    private DragObject dragObject;
 
     // this method is called automatically when setup Controller
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hashSetActivity = new HashSetActivity();
 
+        /*hashSetList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setStyle("-fx-control-inner-background: " + "white" + ";");
+                        } else {
+                            setText(item);
+                            setStyle("-fx-control-inner-background: " + "white" + ";");
+                        }
+                    }
+                };
+            }
+        });*/
+        /*hashSetList.getItems().add("1");
+        hashSetList.getItems().add("2");
+        hashSetList.getItems().add("3");
+        hashSetList.getItems().add("4");*/
+
+        AnimatedZoom zoomOperator = new AnimatedZoom();
+        dragObject = new DragObject();
+
+        // set animated zoom for ListView object
+        hashSetList.setOnScroll(event -> {
+            double zoomFactor = 1.5;
+            if (event.getDeltaY() <= 0) {
+                // zoom out
+                zoomFactor = 1 / zoomFactor;
+            }
+            zoomOperator.zoom(hashSetList, zoomFactor, event.getSceneX(), event.getSceneY());
+        });
     }
 
     // Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()
@@ -64,6 +103,7 @@ public class Controller implements Initializable {
             // add new item as rectangle on the screen
             hashSetList.getItems().add(stackPane);
             hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
+            dragObject.makeDraggable(stackPane);
         }
     }
 
