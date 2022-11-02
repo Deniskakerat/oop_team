@@ -13,13 +13,13 @@ import java.util.HashMap;
  **/
 public class HashSetActivity {
 
-    private  HashMap<String,StackPane> graphicObjectsList = new HashMap<>();
+    private  HashMap<Integer,StackPane> graphicObjectsList = new HashMap<>();
     private HashSetInstance hashSet  = new HashSetInstance();
     private static final int  WIDTH = 100;
     private static final int  HEIGHT = 100;
 
     // method that add new object in the hash and draw it
-    public StackPane add(String data){
+    public StackPane add(Integer data){
         if(hashSet.add(data)){
 
             // Draw rectangle with value in center
@@ -33,7 +33,7 @@ public class HashSetActivity {
 
             Label label = new Label();
             label.setTextFill(Color.BLACK);
-            label.setText(data);
+            label.setText(data.toString());
 
             StackPane stackPane = new StackPane(rectangle,label);
             graphicObjectsList.put(data,stackPane);
@@ -44,7 +44,7 @@ public class HashSetActivity {
     }
 
     // Method to delete value from HashSet and remove rectangle with that value
-    public StackPane remove(String data){
+    public StackPane remove(Integer data){
         if(hashSet.remove(data)){
             StackPane stackPane = graphicObjectsList.get(data);
             return stackPane;

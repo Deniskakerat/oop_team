@@ -7,13 +7,13 @@ import java.util.Iterator;
  * Class for HashSet
  **/
 public class HashSetInstance {
-    private HashSet<String> hashSet = new HashSet<>();
+    private HashSet<Integer> hashSet = new HashSet<>();
 
-    public boolean add(String value){
+    public boolean add(Integer value){
         return hashSet.add(value);
     }
 
-    public boolean remove(String value){
+    public boolean remove(Integer value){
         return hashSet.remove(value);
     }
 
@@ -21,7 +21,7 @@ public class HashSetInstance {
         hashSet.clear();
     }
 
-    public boolean contains(String value){
+    public boolean contains(Integer value){
         return hashSet.contains(value);
     }
 
@@ -29,16 +29,16 @@ public class HashSetInstance {
         return hashSet.size();
     }
 
-    public HashSet<String> getHashSet() {
+    public HashSet<Integer> getHashSet() {
         return hashSet;
     }
 
-    public void setHashSet(HashSet<String> hashSet) {
+    public void setHashSet(HashSet<Integer> hashSet) {
         this.hashSet = hashSet;
     }
 
     public void printHashSet(){
-        Iterator<String> i = hashSet.iterator();
+        Iterator<Integer> i = hashSet.iterator();
         while (i.hasNext())
             System.out.println(i.next());
     }

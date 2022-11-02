@@ -37,34 +37,10 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hashSetActivity = new HashSetActivity();
 
-        /*hashSetList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (item == null || empty) {
-                            setText(null);
-                            setStyle("-fx-control-inner-background: " + "white" + ";");
-                        } else {
-                            setText(item);
-                            setStyle("-fx-control-inner-background: " + "white" + ";");
-                        }
-                    }
-                };
-            }
-        });*/
-        /*hashSetList.getItems().add("1");
-        hashSetList.getItems().add("2");
-        hashSetList.getItems().add("3");
-        hashSetList.getItems().add("4");*/
-
         AnimatedZoom zoomOperator = new AnimatedZoom();
         dragObject = new DragObject();
 
-        // set animated zoom for ListView object
+        // set animated zoom for hashSetList
         hashSetList.setOnScroll(event -> {
             double zoomFactor = 1.5;
             if (event.getDeltaY() <= 0) {
@@ -73,6 +49,7 @@ public class Controller implements Initializable {
             }
             zoomOperator.zoom(hashSetList, zoomFactor, event.getSceneX(), event.getSceneY());
         });
+
         //make hashSetList draggable
         dragObject.makeDraggable(hashSetList);
     }
@@ -87,8 +64,8 @@ public class Controller implements Initializable {
 
         // if value is present
         if(result.isPresent()){
-            // get string value that we need to add to our hashSet
-            String inputData = result.get();
+            // get Integer value that we need to add to our hashSet
+            Integer inputData = Integer.parseInt(result.get());
 
             // Check if value we get from dialog already in the HashSet
             if(hashSetActivity.getHashSet().contains(inputData)){
@@ -121,8 +98,8 @@ public class Controller implements Initializable {
         // if value is present
         if(result.isPresent()){
 
-            // get string value that we need to add to our hashSet
-            String deleteData = result.get();
+            // get Integer value that we need to add to our hashSet
+            Integer deleteData = Integer.parseInt(result.get());
 
             // Check if value we get from dialog is not exist in the HashSet
             if(!hashSetActivity.getHashSet().contains(deleteData)){
