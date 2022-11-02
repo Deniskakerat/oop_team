@@ -1,5 +1,6 @@
-package com.example.hashset;
+package com.example.hashset.dialogs;
 
+import com.example.hashset.CustomDialog;
 import javafx.scene.control.ButtonType;
 import javafx.util.Callback;
 

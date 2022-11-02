@@ -1,5 +1,7 @@
 package com.example.hashset;
 
+import com.example.hashset.dialogs.AddItemDialog;
+import com.example.hashset.dialogs.DeleteItemDialog;
 import com.example.hashset.exceptions.ItemAlreadyExists;
 import com.example.hashset.exceptions.ItemNotExists;
 import com.example.hashset.graphics.AnimatedZoom;
@@ -71,6 +73,8 @@ public class Controller implements Initializable {
             }
             zoomOperator.zoom(hashSetList, zoomFactor, event.getSceneX(), event.getSceneY());
         });
+        //make hashSetList draggable
+        dragObject.makeDraggable(hashSetList);
     }
 
     // Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()
@@ -134,6 +138,7 @@ public class Controller implements Initializable {
             StackPane stackPane = hashSetActivity.remove(deleteData);
             // add new item as rectangle on the screen
             hashSetList.getItems().remove(stackPane);
+
             // change size label
             System.out.println("Size = " + hashSetActivity.getHashSet().getHashSet().size());
             hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));

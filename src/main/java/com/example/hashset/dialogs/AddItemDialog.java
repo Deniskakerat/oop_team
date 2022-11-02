@@ -1,30 +1,15 @@
-package com.example.hashset;
+package com.example.hashset.dialogs;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import com.example.hashset.CustomDialog;
 import javafx.scene.control.ButtonType;
 import javafx.util.Callback;
 
 
 public class AddItemDialog extends CustomDialog {
-    public AddItemDialog(String title, String highlight) {
-        super(title, highlight);
-
-        Button okButton = (Button) getDialogPane().lookupButton(ButtonType.OK);
-
-        // if the input validation failed then user can't press button OK
-        okButton.addEventFilter(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if(!isInputValid()){
-                    actionEvent.consume();
-                }
-            }
-        });
+    public AddItemDialog(String title, String subtitle) {
+        super(title, subtitle);
     }
 
-    // Method that return from the dialog value that user entered into textField
     @Override
     protected void setResultConverter() {
         Callback<ButtonType, String> stringResultConverter = new Callback<ButtonType, String>() {
@@ -47,5 +32,14 @@ public class AddItemDialog extends CustomDialog {
         return true;
     }
 
+
+    public static boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
