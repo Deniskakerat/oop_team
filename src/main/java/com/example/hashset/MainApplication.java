@@ -11,21 +11,28 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 /**
  * Class that launch application
  **/
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         String css = String.valueOf(this.getClass().getResource("main.css"));
+
+        Image img= new Image(getClass().getResource("/com/example/hashset/icon.png").toString());
+        stage.getIcons().add(img);
+
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add(css);
         stage.setResizable(false);
         stage.setWidth(1280);
         stage.setHeight(800);
-        stage.setTitle("HashSet Gui");
+        stage.setTitle("HashSet");
         stage.setScene(scene);
         stage.show();
     }
