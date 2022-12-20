@@ -140,7 +140,7 @@ public class Controller implements Initializable {
         // directory in which to save
         PrintDialog printDialog = new PrintDialog();
         File dir = printDialog.chooseDirectory();
-        File file = new File(dir + "\\" + "sir.txt");
+        File file = new File(dir + "\\" + "hashSet.txt");
 
         writeToFile(file);
 
