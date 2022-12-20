@@ -3,6 +3,8 @@ package com.example.hashset;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
+
 /**
  * Class for HashSet
  **/
@@ -34,12 +36,15 @@ public class HashSetInstance {
     }
 
     public void setHashSet(HashSet<Integer> hashSet) {
+        Objects.requireNonNull(hashSet);
         this.hashSet = hashSet;
     }
 
     public void printHashSet(){
-        Iterator<Integer> i = hashSet.iterator();
-        while (i.hasNext())
-            System.out.println(i.next());
+        System.out.println("HashSet ---------->");
+        for (Integer value:hashSet) {
+            System.out.println(value + " hash: " + value.hashCode());
+        }
     }
+
 }

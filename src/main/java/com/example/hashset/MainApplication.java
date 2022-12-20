@@ -20,7 +20,6 @@ public class MainApplication extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         String css = String.valueOf(this.getClass().getResource("main.css"));
-
         Scene scene = new Scene(root);
         scene.getStylesheets().add(css);
         stage.setResizable(false);

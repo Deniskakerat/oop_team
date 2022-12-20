@@ -21,24 +21,7 @@ public class HashSetActivity {
     // method that add new object in the hash and draw it
     public StackPane add(Integer data){
         if(hashSet.add(data)){
-
-            // Draw rectangle with value in center
-            Rectangle rectangle = new Rectangle();
-
-            rectangle.setArcHeight(5);
-            rectangle.setArcWidth(5);
-            rectangle.setFill(Paint.valueOf("#0392cf"));
-            rectangle.setWidth(WIDTH);
-            rectangle.setHeight(HEIGHT);
-
-            Label label = new Label();
-            label.setTextFill(Color.BLACK);
-            label.setText(data.toString());
-
-            StackPane stackPane = new StackPane(rectangle,label);
-            graphicObjectsList.put(data,stackPane);
-
-            return stackPane;
+            createStackPane(data);
         }
         return null;
     }
@@ -56,4 +39,30 @@ public class HashSetActivity {
         return hashSet;
     }
 
+    public HashMap<Integer, StackPane> getGraphicObjectsList() {
+        return graphicObjectsList;
+    }
+
+    public void setGraphicObjectsList(HashMap<Integer, StackPane> graphicObjectsList) {
+        this.graphicObjectsList = graphicObjectsList;
+    }
+    public StackPane createStackPane(Integer value){
+        // Draw rectangle with value in center
+        Rectangle rectangle = new Rectangle();
+
+        rectangle.setArcHeight(5);
+        rectangle.setArcWidth(5);
+        rectangle.setFill(Paint.valueOf("#0392cf"));
+        rectangle.setWidth(WIDTH);
+        rectangle.setHeight(HEIGHT);
+
+        Label label = new Label();
+        label.setTextFill(Color.BLACK);
+        label.setText(value.toString());
+
+        StackPane stackPane = new StackPane(rectangle,label);
+        graphicObjectsList.put(value,stackPane);
+
+        return stackPane;
+    }
 }
