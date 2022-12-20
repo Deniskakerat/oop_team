@@ -30,7 +30,7 @@
             <Font name="Arial" size="16.0" />
         </font>
     </Button>
-    <Button fx:id="sizeButton" layoutX="1137.0" layoutY="700" mnemonicParsing="false" onAction="#printButtonClick" text="Print">
+    <Button fx:id="sizeButton" layoutX="1130.0" layoutY="700" mnemonicParsing="false" onAction="#printButtonClick" text="Output To File">
         <font>
             <Font name="Arial" size="16.0" />
         </font>

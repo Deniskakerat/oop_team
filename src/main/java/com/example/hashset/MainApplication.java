@@ -25,7 +25,7 @@ public class MainApplication extends Application {
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(css);
-        stage.setResizable(false);
+        //stage.setResizable(false);
         stage.setWidth(1280);
         stage.setHeight(800);
         stage.setTitle("HashSet");
