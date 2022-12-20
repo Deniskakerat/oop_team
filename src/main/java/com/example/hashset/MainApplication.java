@@ -4,15 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.Objects;
 
 /**
  * Class that launch application
@@ -20,10 +16,10 @@ import java.net.URL;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
         String css = String.valueOf(this.getClass().getResource("main.css"));
 
-        Image img= new Image(getClass().getResource("/com/example/hashset/icon.png").toString());
+        Image img= new Image(Objects.requireNonNull(getClass().getResource("/com/example/hashset/icon.png")).toString());
         stage.getIcons().add(img);
 
 
