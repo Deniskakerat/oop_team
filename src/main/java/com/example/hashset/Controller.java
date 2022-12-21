@@ -1,6 +1,7 @@
 package com.example.hashset;
 
 import com.example.hashset.dialogs.AddItemDialog;
+import com.example.hashset.dialogs.ContainsItemDialog;
 import com.example.hashset.dialogs.DeleteItemDialog;
 import com.example.hashset.dialogs.PrintDialog;
 import com.example.hashset.exceptions.ItemAlreadyExists;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -53,7 +55,9 @@ public class Controller implements Initializable {
         dragObject.makeDraggable(hashSetList);
     }
 
-    /**Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()**/
+    /**
+     * Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()
+     **/
     public void addButtonClick() throws ItemAlreadyExists {
 
         CustomDialog addItemDialog = new AddItemDialog("Add Item", "Enter element to add");
@@ -89,7 +93,9 @@ public class Controller implements Initializable {
         }
     }
 
-    /** Method to delete item from HashSet  **/
+    /**
+     * Method to delete item from HashSet
+     **/
     public void deleteButtonClick() throws ItemNotExists {
         CustomDialog deleteItemDialog = new DeleteItemDialog("Remove Item", "Enter element to remove");
 
@@ -125,8 +131,33 @@ public class Controller implements Initializable {
     }
 
     //TODO Method to check if HashSet contains item that user enter in the dialog window
-    public void containsButtonClick() {
+    public void containsButtonClick() throws ItemNotExists {
+        CustomDialog containsItemDialog = new ContainsItemDialog("Check if hashset contain item",
+                "Enter element");
 
+        // returning value from dialog
+        Optional<String> result = containsItemDialog.showAndWait();
+
+        // if value is present
+        if (result.isPresent()) {
+
+            // get Integer value that we need to add to our hashSet
+            Integer deleteData = Integer.parseInt(result.get());
+
+            // Check if value we get from dialog is not exist in the HashSet
+            if (!hashSetActivity.getHashSet().contains(deleteData)) {
+                Alert valueNotExistInHashSet = new Alert(Alert.AlertType.ERROR);
+                valueNotExistInHashSet.getDialogPane().setHeaderText("Value not exists!");
+                valueNotExistInHashSet.getDialogPane().setContentText("Such value not  exists in the HashSet!");
+                valueNotExistInHashSet.showAndWait();
+                throw new ItemNotExists("Such value not exists in the HashSet!");
+            } else {
+                Alert valueExistInHashSet = new Alert(Alert.AlertType.INFORMATION);
+                valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
+                valueExistInHashSet.getDialogPane().setContentText("Such value exists in the HashSet!");
+                valueExistInHashSet.showAndWait();
+            }
+        }
     }
 
     //TODO Method to clear the HashSet and delete all graphic representation on the screen
@@ -135,7 +166,9 @@ public class Controller implements Initializable {
 
     }
 
-    /** Method to print all the values from hashset in the file **/
+    /**
+     * Method to print all the values from hashset in the fileівавіавіа
+     **/
     public void printButtonClick() {
         // directory in which to save
         PrintDialog printDialog = new PrintDialog();
