@@ -1,9 +1,12 @@
 package com.example.hashset.dialogs;
 
 import javafx.scene.control.Dialog;
+import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 public class PrintDialog extends Dialog {
     private File dir;

@@ -6,9 +6,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.util.Objects;
 
 /**
  * Class that allow us to create different dialogs for different tasks
@@ -26,11 +30,8 @@ public abstract class CustomDialog extends Dialog<String>{
 
     public CustomDialog(String title, String instruction){
         this.setTitle(title);
-
         setUI(instruction);
         setResultConverter();
-
-
     }
     // Method that creates GUI
     private void setUI(String instruction){
@@ -39,6 +40,10 @@ public abstract class CustomDialog extends Dialog<String>{
         // add style
         String css = String.valueOf(this.getClass().getResource("/com/example/hashset/dialog.css"));
         getDialogPane().getStylesheets().add(css);
+        Image img = new Image(Objects.requireNonNull(getClass().getResource("/com/example/hashset/icon.png")).toString());
+        Stage stage = (Stage) this.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(img);
+
 
         getDialogPane().setPrefSize(400,400);
         anchorPane.setPrefSize(400,350);

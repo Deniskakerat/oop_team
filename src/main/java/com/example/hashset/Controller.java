@@ -131,8 +131,8 @@ public class Controller implements Initializable {
     }
 
     //TODO Method to check if HashSet contains item that user enter in the dialog window
-    public void containsButtonClick() throws ItemNotExists {
-        CustomDialog containsItemDialog = new ContainsItemDialog("Check if hashset contain item",
+    public void containsButtonClick() {
+        CustomDialog containsItemDialog = new ContainsItemDialog("Check if hashset contains item",
                 "Enter element");
 
         // returning value from dialog
@@ -146,15 +146,14 @@ public class Controller implements Initializable {
 
             // Check if value we get from dialog is not exist in the HashSet
             if (!hashSetActivity.getHashSet().contains(deleteData)) {
-                Alert valueNotExistInHashSet = new Alert(Alert.AlertType.ERROR);
+                Alert valueNotExistInHashSet = new Alert(Alert.AlertType.INFORMATION);
                 valueNotExistInHashSet.getDialogPane().setHeaderText("Value not exists!");
-                valueNotExistInHashSet.getDialogPane().setContentText("Such value not  exists in the HashSet!");
+                valueNotExistInHashSet.getDialogPane().setContentText("Value " +  deleteData + " not  exists in the HashSet!");
                 valueNotExistInHashSet.showAndWait();
-                throw new ItemNotExists("Such value not exists in the HashSet!");
             } else {
                 Alert valueExistInHashSet = new Alert(Alert.AlertType.INFORMATION);
                 valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
-                valueExistInHashSet.getDialogPane().setContentText("Such value exists in the HashSet!");
+                valueExistInHashSet.getDialogPane().setContentText("Value " +  deleteData + " exists in the HashSet!");
                 valueExistInHashSet.showAndWait();
             }
         }
