@@ -2,12 +2,10 @@ package com.example.hashset;
 
 import com.example.hashset.dialogs.AddItemDialog;
 import com.example.hashset.dialogs.ContainsItemDialog;
-import com.example.hashset.dialogs.RemoveItemDialog;
 import com.example.hashset.dialogs.PrintDialog;
+import com.example.hashset.dialogs.RemoveItemDialog;
 import com.example.hashset.exceptions.ItemAlreadyExists;
 import com.example.hashset.exceptions.ItemNotExists;
-import com.example.hashset.graphics.AnimatedZoom;
-import com.example.hashset.graphics.DragObject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -38,22 +36,6 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hashSetActivity = new HashSetActivity();
-
-        AnimatedZoom zoomOperator = new AnimatedZoom();
-        DragObject dragObject = new DragObject();
-
-        // set animated zoom for hashSetList
-        hashSetList.setOnScroll(event -> {
-            double zoomFactor = 1.5;
-            if (event.getDeltaY() <= 0) {
-                // zoom out
-                zoomFactor = 1 / zoomFactor;
-            }
-            zoomOperator.zoom(hashSetList, zoomFactor, event.getSceneX(), event.getSceneY());
-        });
-
-        //make hashSetList draggable
-        dragObject.makeDraggable(hashSetList);
     }
 
     /**
