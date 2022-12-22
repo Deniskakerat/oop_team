@@ -16,16 +16,18 @@ import java.util.Objects;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        // setting the layout from the file
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main.fxml")));
         String css = String.valueOf(this.getClass().getResource("main.css"));
 
-        Image img= new Image(Objects.requireNonNull(getClass().getResource("/com/example/hashset/icon.png")).toString());
+        // add icon for the application
+        Image img = new Image(Objects.requireNonNull(getClass().getResource("/com/example/hashset/icon.png")).toString());
         stage.getIcons().add(img);
 
-
+        // initialize the scene
         Scene scene = new Scene(root);
         scene.getStylesheets().add(css);
-        //stage.setResizable(false);
+        stage.setResizable(false);
         stage.setWidth(1280);
         stage.setHeight(800);
         stage.setTitle("HashSet");

@@ -2,16 +2,16 @@ package com.example.hashset.dialogs;
 
 import com.example.hashset.CustomDialog;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.util.Objects;
 
-
+/**
+ * Class extends the CustomDialog and serve for user input of value that will be added to hashSet
+ **/
 public class AddItemDialog extends CustomDialog {
     public AddItemDialog(String title, String highlight) {
         super(title, highlight);
@@ -32,41 +32,5 @@ public class AddItemDialog extends CustomDialog {
         });
     }
 
-    /**
-     * convert result of input
-     **/
-    @Override
-    protected void setResultConverter() {
-        Callback<ButtonType, String> stringResultConverter = param -> {
-            if (param == ButtonType.OK) {
-                return inputField.getText();
-            }
-            return null;
-        };
-        setResultConverter(stringResultConverter);
-    }
-
-    /**
-     * check if there's entered value and if it's digit
-     **/
-    @Override
-    public boolean isInputValid() {
-        if (inputField.getText().isBlank() || !isParsable(inputField.getText())) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * check if we could parse Integer from String
-     **/
-    private static boolean isParsable(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (final NumberFormatException e) {
-            return false;
-        }
-    }
 
 }

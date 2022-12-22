@@ -2,7 +2,7 @@ package com.example.hashset;
 
 import com.example.hashset.dialogs.AddItemDialog;
 import com.example.hashset.dialogs.ContainsItemDialog;
-import com.example.hashset.dialogs.DeleteItemDialog;
+import com.example.hashset.dialogs.RemoveItemDialog;
 import com.example.hashset.dialogs.PrintDialog;
 import com.example.hashset.exceptions.ItemAlreadyExists;
 import com.example.hashset.exceptions.ItemNotExists;
@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 /**
  * Class that control all the events that goes on in our main scene
  **/
-//TODO We need to update hashSetList after every add or remove operation
 public class Controller implements Initializable {
     @FXML
     private ListView<StackPane> hashSetList;// list that show hashSet elements on the screen
@@ -33,7 +32,9 @@ public class Controller implements Initializable {
     private Label hashSetSizeValue; // show the size of HashSet
     private HashSetActivity hashSetActivity;
 
-    // this method is called automatically when setup Controller
+    /**
+     * this method is called automatically when setup Controller
+     **/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hashSetActivity = new HashSetActivity();
@@ -56,7 +57,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Method to add new item to HashSet. Call the dialog window and then pass the value to HashSetActivity.add()
+     * Method to add new item to HashSet
      **/
     public void addButtonClick() throws ItemAlreadyExists {
 
@@ -73,7 +74,7 @@ public class Controller implements Initializable {
             // Check if value we get from dialog already in the HashSet
             if (hashSetActivity.getHashSet().contains(inputData)) {
                 Alert valueExistInHashSet = new Alert(Alert.AlertType.ERROR);
-                valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
+                valueExistInHashSet.getDialogPane().setHeaderText("Value already exists!");
                 valueExistInHashSet.getDialogPane().setContentText("Such value already exists in the HashSet!");
                 valueExistInHashSet.showAndWait();
                 throw new ItemAlreadyExists("Such value already exists in the HashSet!");
@@ -94,10 +95,10 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Method to delete item from HashSet
+     * Method to remove item from HashSet
      **/
-    public void deleteButtonClick() throws ItemNotExists {
-        CustomDialog deleteItemDialog = new DeleteItemDialog("Remove Item", "Enter element to remove");
+    public void removeButtonClick() throws ItemNotExists {
+        CustomDialog deleteItemDialog = new RemoveItemDialog("Remove Item", "Enter element to remove");
 
         // returning value from dialog
         Optional<String> result = deleteItemDialog.showAndWait();
@@ -126,11 +127,12 @@ public class Controller implements Initializable {
             // change size label
             System.out.println("Size = " + hashSetActivity.getHashSet().getHashSet().size());
             hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
-            hashSetActivity.getHashSet().printHashSet();
         }
     }
 
-    //TODO Method to check if HashSet contains item that user enter in the dialog window
+    /**
+     * Method to check if HashSet contains item that user entered
+     **/
     public void containsButtonClick() {
         CustomDialog containsItemDialog = new ContainsItemDialog("Check if hashset contains item",
                 "Enter element");
@@ -142,18 +144,18 @@ public class Controller implements Initializable {
         if (result.isPresent()) {
 
             // get Integer value that we need to add to our hashSet
-            Integer deleteData = Integer.parseInt(result.get());
+            Integer containsData = Integer.parseInt(result.get());
 
             // Check if value we get from dialog is not exist in the HashSet
-            if (!hashSetActivity.getHashSet().contains(deleteData)) {
+            if (!hashSetActivity.getHashSet().contains(containsData)) {
                 Alert valueNotExistInHashSet = new Alert(Alert.AlertType.INFORMATION);
                 valueNotExistInHashSet.getDialogPane().setHeaderText("Value not exists!");
-                valueNotExistInHashSet.getDialogPane().setContentText("Value " +  deleteData + " not  exists in the HashSet!");
+                valueNotExistInHashSet.getDialogPane().setContentText("Value " + containsData + " not  exists in the HashSet!");
                 valueNotExistInHashSet.showAndWait();
             } else {
                 Alert valueExistInHashSet = new Alert(Alert.AlertType.INFORMATION);
                 valueExistInHashSet.getDialogPane().setHeaderText("Value exists!");
-                valueExistInHashSet.getDialogPane().setContentText("Value " +  deleteData + " exists in the HashSet!");
+                valueExistInHashSet.getDialogPane().setContentText("Value " + containsData + " exists in the HashSet!");
                 valueExistInHashSet.showAndWait();
             }
         }
@@ -166,45 +168,49 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Method to print all the values from hashset in the fileівавіавіа
+     * Method to print all the values from hashset in the file
      **/
     public void printButtonClick() {
         // directory in which to save
         PrintDialog printDialog = new PrintDialog();
         File dir = printDialog.chooseDirectory();
+        // taking the chosen directory and add the file 'hashSet.txt'
         File file = new File(dir + "\\" + "hashSet.txt");
 
         writeToFile(file);
 
     }
 
-    // helper method to write data into file
+    /**
+     * helper method to write data in the file
+     **/
     private void writeToFile(File file) {
+        // create fileWriter
         FileWriter fileWriter;
         try {
             fileWriter = new FileWriter(file);
         } catch (IOException e) {
             throw new RuntimeException("Can't initialize the fileWriter");
         }
+        // write all hashSet value into the file
         try {
             for (Integer value : hashSetActivity.getHashSet().getHashSet()) {
                 fileWriter.write(value.toString());
                 fileWriter.write("\n");
             }
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fileWriter.close();
-            } catch (IOException e) {
-                throw new RuntimeException("Can't close the fileWriter");
-            }
         }
     }
 
-    // update hashSetList in accordance with hashSet
+    /**
+     * update hashSetList in accordance with hashSet
+     **/
     private void updateHashSet() {
+        // clear the hashSetList
         hashSetList.getItems().clear();
+        // then add values
         for (Integer value : hashSetActivity.getHashSet().getHashSet()) {
             hashSetList.getItems().add(hashSetActivity.createStackPane(value));
         }

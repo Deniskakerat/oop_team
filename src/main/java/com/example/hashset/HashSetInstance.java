@@ -1,33 +1,30 @@
 package com.example.hashset;
 
-
 import java.util.HashSet;
 import java.util.Objects;
 
-/**
- * Class for HashSet
- **/
+/** Class for HashSet Data Structure **/
 public class HashSetInstance {
     private HashSet<Integer> hashSet = new HashSet<>();
 
+    /** add value to hashSet */
     public boolean add(Integer value){
         return hashSet.add(value);
     }
 
+    /** remove value from hashSet */
     public boolean remove(Integer value){
         return hashSet.remove(value);
     }
 
+    /** clear the hashSet */
     public void clear (){
         hashSet.clear();
     }
 
+    /**check if hashSet contains value*/
     public boolean contains(Integer value){
         return hashSet.contains(value);
-    }
-
-    public int size(){
-        return hashSet.size();
     }
 
     public HashSet<Integer> getHashSet() {
@@ -39,10 +36,11 @@ public class HashSetInstance {
         this.hashSet = hashSet;
     }
 
+    /** Method that prints HashSet **/
     public void printHashSet(){
         System.out.println("HashSet ---------->");
         for (Integer value:hashSet) {
-            System.out.println(value + " hash: " + value.hashCode());
+            System.out.println(value);
         }
     }
 

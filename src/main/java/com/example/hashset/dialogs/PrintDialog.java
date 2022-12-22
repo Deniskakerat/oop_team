@@ -1,23 +1,21 @@
 package com.example.hashset.dialogs;
 
 import javafx.scene.control.Dialog;
-import javafx.scene.image.Image;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
-import java.util.Objects;
 
+/** Class to choose the directory where to save file with values from HashSet **/
 public class PrintDialog extends Dialog {
-    private File dir;
-    private DirectoryChooser directoryChooser;
+    private final DirectoryChooser directoryChooser;
     public PrintDialog() {
+        // create directoryChooser that will open the window to choose directory
         directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory in which save the hashSet result file");
     }
+    /** Return File that contains chosen directory **/
     public File chooseDirectory(){
-        dir  = directoryChooser.showDialog(this.getOwner());
-        return dir;
+        // start the directoryChooser and save resulting directory into dir
+        return directoryChooser.showDialog(this.getOwner());
     }
 
 }
