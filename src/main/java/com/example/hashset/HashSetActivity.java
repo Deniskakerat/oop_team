@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import java.util.HashMap;
+import java.util.Objects;
 
 /** Class that manage the graphic objects **/
 public class HashSetActivity {
@@ -42,6 +43,7 @@ public class HashSetActivity {
     }
 
     public void setGraphicObjectsList(HashMap<Integer, StackPane> graphicObjectsList) {
+        Objects.nonNull(graphicObjectsList);
         this.graphicObjectsList = graphicObjectsList;
     }
     /** Creating graphic element that represent value in the HashSet **/

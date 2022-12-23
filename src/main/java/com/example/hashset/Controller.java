@@ -2,7 +2,7 @@ package com.example.hashset;
 
 import com.example.hashset.dialogs.AddItemDialog;
 import com.example.hashset.dialogs.ContainsItemDialog;
-import com.example.hashset.dialogs.PrintDialog;
+import com.example.hashset.dialogs.DirChooserDialog;
 import com.example.hashset.dialogs.RemoveItemDialog;
 import com.example.hashset.exceptions.ItemAlreadyExists;
 import com.example.hashset.exceptions.ItemNotExists;
@@ -150,10 +150,10 @@ public class Controller implements Initializable {
     /**
      * Method to print all the values from hashset in the file
      **/
-    public void printButtonClick() {
+    public void toFileButtonClick() {
         // directory in which to save
-        PrintDialog printDialog = new PrintDialog();
-        File dir = printDialog.chooseDirectory();
+        DirChooserDialog dirChooserDialog = new DirChooserDialog();
+        File dir = dirChooserDialog.chooseDirectory();
         // taking the chosen directory and add the file 'hashSet.txt'
         File file = new File(dir + "\\" + "hashSet.txt");
 

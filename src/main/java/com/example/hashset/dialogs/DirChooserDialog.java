@@ -5,9 +5,9 @@ import javafx.stage.DirectoryChooser;
 import java.io.File;
 
 /** Class to choose the directory where to save file with values from HashSet **/
-public class PrintDialog extends Dialog {
+public class DirChooserDialog extends Dialog {
     private final DirectoryChooser directoryChooser;
-    public PrintDialog() {
+    public DirChooserDialog() {
         // create directoryChooser that will open the window to choose directory
         directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose directory in which save the hashSet result file");
