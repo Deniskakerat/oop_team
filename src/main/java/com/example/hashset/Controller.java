@@ -70,9 +70,8 @@ public class Controller implements Initializable {
             updateHashSet();
 
             // add new item as rectangle on the screen
-            //hashSetList.getItems().add(stackPane);
+
             hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
-            hashSetActivity.getHashSet().printHashSet();
         }
     }
 
@@ -107,7 +106,6 @@ public class Controller implements Initializable {
             hashSetList.getItems().remove(stackPane);
 
             // change size label
-            System.out.println("Size = " + hashSetActivity.getHashSet().getHashSet().size());
             hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
         }
     }

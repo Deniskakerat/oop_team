@@ -37,7 +37,7 @@ public class HashSetInstance {
     }
 
     /** Method that prints HashSet **/
-    public void printHashSet(){
+    public void print(){
         System.out.println("HashSet ---------->");
         for (Integer value:hashSet) {
             System.out.println(value);
