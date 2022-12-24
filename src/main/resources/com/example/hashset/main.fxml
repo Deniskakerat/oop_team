@@ -30,7 +30,7 @@
             <Font name="Arial" size="16.0" />
         </font>
     </Button>
-    <Button  layoutX="1130.0" layoutY="700" mnemonicParsing="false" onAction="#toFileButtonClick" text="Output To File">
+    <Button  layoutX="1130.0" layoutY="700" mnemonicParsing="false" onAction="#toFileButtonClick" text="Save To File">
         <font>
             <Font name="Arial" size="16.0" />
         </font>

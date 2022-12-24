@@ -154,33 +154,36 @@ public class Controller implements Initializable {
         // directory in which to save
         DirChooserDialog dirChooserDialog = new DirChooserDialog();
         File dir = dirChooserDialog.chooseDirectory();
-        // taking the chosen directory and add the file 'hashSet.txt'
+        // taking the chosen directory and add to it the file 'hashSet.txt'
         File file = new File(dir + "\\" + "hashSet.txt");
 
-        writeToFile(file);
+        try {
+            writeToFile(file);
+        } catch (IOException e) {
+            // If we have an error during writing process or when initialize or close file writer
+            Alert writingInFileError = new Alert(Alert.AlertType.ERROR);
+            writingInFileError.getDialogPane().setHeaderText("Error during file writing!");
+            writingInFileError.getDialogPane().setContentText("Can't write hashSet to the file!");
+            writingInFileError.showAndWait();
+        }
 
     }
 
     /**
      * helper method to write data in the file
      **/
-    private void writeToFile(File file) {
+    private void writeToFile(File file) throws IOException {
         // create fileWriter
-        FileWriter fileWriter;
+        FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(file);
-        } catch (IOException e) {
-            throw new RuntimeException("Can't initialize the fileWriter");
-        }
-        // write all hashSet value into the file
-        try {
+            // write all the data from hashSet into file
             for (Integer value : hashSetActivity.getHashSet().getHashSet()) {
                 fileWriter.write(value.toString());
                 fileWriter.write("\n");
             }
+        }finally {
             fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
