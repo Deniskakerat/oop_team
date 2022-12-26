@@ -37,6 +37,13 @@ public class HashSetActivity {
         }
         return null;
     }
+    /**
+     * Clear the hashSet and it's graphic representation
+     **/
+    public void clear (){
+        // clear the hashSet
+        hashSet.getHashSet().clear();
+    }
 
     /**
      * Creating graphic element that represent value in the HashSet

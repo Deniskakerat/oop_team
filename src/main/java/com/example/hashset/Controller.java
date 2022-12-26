@@ -9,14 +9,18 @@ import com.example.hashset.exceptions.ItemNotExists;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,9 +73,6 @@ public class Controller implements Initializable {
             //update the list
             updateHashSet();
 
-            // add new item as rectangle on the screen
-
-            hashSetSizeValue.setText(String.valueOf(hashSetActivity.getHashSet().getHashSet().size()));
         }
     }
 
@@ -141,11 +142,29 @@ public class Controller implements Initializable {
         }
     }
 
-    //TODO Method to clear the HashSet and delete all graphic representation on the screen
+    /** TODO Method to clear the HashSet and delete all graphic representation on the screen */
     public void clearButtonClick() {
+        // Create dialog to confirm that user want to clear the HashSet
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"", ButtonType.YES, ButtonType.NO);
 
+        // set clear icon
+        Image clearIcon = new Image(Objects.requireNonNull(getClass().getResource("/com/example/hashset/clear.png")).toString());
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(clearIcon);
 
+        // set alert text
+        alert.setTitle("Clear HashSet");
+        alert.setHeaderText("You want to clear the HashSet?");
+        alert.showAndWait();
+
+        // If user pressed YES button
+        if (alert.getResult() == ButtonType.YES) {
+            hashSetActivity.clear();
+            // update the hashSetList
+            updateHashSet();
+        }
     }
+
 
     /**
      * Method to print all the values from hashset in the file
@@ -174,21 +193,17 @@ public class Controller implements Initializable {
      **/
     private void writeToFile(File file) throws IOException {
         // create fileWriter
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(file);
+        try (FileWriter fileWriter = new FileWriter(file)) {
             // write all the data from hashSet into file
             for (Integer value : hashSetActivity.getHashSet().getHashSet()) {
                 fileWriter.write(value.toString());
                 fileWriter.write("\n");
             }
-        }finally {
-            fileWriter.close();
         }
     }
 
     /**
-     * update hashSetList in accordance with hashSet
+     * update hashSetList in accordance with hashSet and set the size label
      **/
     private void updateHashSet() {
         // clear the hashSetList
@@ -197,6 +212,8 @@ public class Controller implements Initializable {
         for (Integer value : hashSetActivity.getHashSet().getHashSet()) {
             hashSetList.getItems().add(hashSetActivity.createStackPane(value));
         }
+        // update the size label value
+        hashSetSizeValue.setText(String.valueOf(hashSetList.getItems().size()));
     }
 
 }
